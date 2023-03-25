@@ -1,3 +1,6 @@
+#
+# Questo e' solo un esempio in formato OpenAPI 3.0.1 delle implementazioni API REST che metterà a disposizione ISIDATA 
+#
 openapi: 3.0.1
 info:
   title: API ISIUniv23
@@ -31,8 +34,12 @@ paths:
           description: Codice univoco ateneo
       responses:
         '200':
-          description: Auto generated using Swagger Inspector
+          description: Lo studente è stato trovato e le informazioni sono state recuperate con successo
           content:
-            application/json; charset=utf-8:
+            application/json:
               schema:
-                type: string
+                type: object
+        '400':
+          description: I paramentri CUStudente e CUAteneo sono obbligatori
+        '401':
+          description: Informazioni sull'autorizzazione mancanti o non valide
