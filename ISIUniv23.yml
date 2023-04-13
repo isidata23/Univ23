@@ -24,12 +24,14 @@ paths:
       parameters:
         - name: CUStudente
           in: query
+          example: 123456
           schema:
             type: string
           required: true
           description: codice univoco studente
         - name: CUAteneo
           in: query
+          example: 123456
           schema:
             type: string
           required: true
@@ -53,6 +55,7 @@ paths:
       parameters:
         - name: AnnoAccademico
           in: query
+          example: 2023/2024
           schema:
             type: string
           required: true
