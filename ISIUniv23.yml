@@ -34,7 +34,7 @@ paths:
           description: Codice univoco ateneo
       responses:
         '200':
-          description: Lo studente è stato trovato e le informazioni sono state recuperate con successo
+          description: Lo studente è stato trovato e viene restituita formato json la sua situazione in tempo reale inclusa di esami sostenuti
           content:
             application/json:
               schema:
