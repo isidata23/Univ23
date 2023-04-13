@@ -18,7 +18,9 @@ servers:
 paths:
   /ISIUniv23/api/SituazioneStudente:
     get:
-      description: Situazione studente codice fiscale in tempo reale inclusa di esami sostenuti
+      operationId: getSituazioneStudente
+      summary: Situazione studente in tempo reale
+      description: Situazione studente con codice fiscale in tempo reale inclusa di esami sostenuti
       parameters:
         - name: CUStudente
           in: query
@@ -31,7 +33,7 @@ paths:
           schema:
             type: string
           required: true
-          description: Codice univoco ateneo
+          description: codice univoco ateneo
       responses:
         '200':
           description: Lo studente è stato trovato e viene restituita formato json la sua situazione in tempo reale inclusa di esami sostenuti
@@ -41,5 +43,28 @@ paths:
                 type: object
         '400':
           description: I paramentri CUStudente e CUAteneo sono obbligatori
+        '401':
+          description: Informazioni sull'autorizzazione mancanti o non valide
+  /ISIUniv23/api/CorsiErogati:
+    get:
+      operationId: getCorsiErogati
+      summary: Elenco corsi erogati in tempo reale
+      description: Elenco corsi erogati con statistiche numero iscritti per anno di corso in tempo reale
+      parameters:
+        - name: AnnoAccademico
+          in: query
+          schema:
+            type: string
+          required: true
+          description: Anno Accademico di riferimento per l'elaborazione della statistica
+      responses:
+        '200':
+          description: viene restituito formato json l'elenco corsi erogati con statistiche numero iscritti per anno di corso in tempo reale
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Parametro AnnoAccademico obbligatorio
         '401':
           description: Informazioni sull'autorizzazione mancanti o non valide
