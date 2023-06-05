@@ -18,8 +18,8 @@ servers:
 paths:
   /ISIUniv23/api/SituazioneStudente:
     get:
-      operationId: getSituazioneStudente
-      summary: Situazione studente in tempo reale
+      operationId: Conteggio_Iscritti_Corso_PerAnno
+      summary: Numero di studenti iscritti a quel Corso di Studi raggruppati per anno di corso
       description: Situazione studente con codice fiscale in tempo reale inclusa di esami sostenuti
       parameters:
         - name: CUStudente
@@ -28,14 +28,7 @@ paths:
           schema:
             type: string
           required: true
-          description: codice univoco studente
-        - name: CUAteneo
-          in: query
-          example: 123456
-          schema:
-            type: string
-          required: true
-          description: codice univoco ateneo
+          description:  Indice delle Pubbliche Amministrazioni, riferimento univoco dell'IFS
       responses:
         '200':
           description: Lo studente è stato trovato e viene restituita formato json la sua situazione in tempo reale inclusa di esami sostenuti
