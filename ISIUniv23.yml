@@ -1,5 +1,5 @@
 #
-# Formato OpenAPI 3.0.1 delle implementazioni API REST che mette a disposizione ISIDATA 
+# Formato OpenAPI 3.0.1 delle implementazioni API REST che mette a disposizione ISIDATA. L'autenticazione sarà basata su token, ma per adesso essendo visibili dati fittizi, è sufficiente passare nell'header la chiave Authorization col valore basic test:test
 #
 openapi: 3.0.1
 info:
@@ -79,8 +79,7 @@ paths:
           schema:
             type: string
           required: true
-          schema:
-            example: 8.5
+          example: 8.5
           description:  Voto di riferimento per ottenere il conteggio degli studenti con votazione maggiore del sudetto parametro. I decimali vanno separati col punto.
         - name: Vecchio_Ordinamento
           in: query
@@ -92,6 +91,133 @@ paths:
       responses:
         '200':
           description: Viene restituito il conteggio degli studenti con votazione maggiore del parametro Voto
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Parametro CodiceIPA obbligatorio
+        '401':
+          description: Informazioni sull'autorizzazione mancanti o non valide
+  /ISIUniv23/api/Corsi_Erogati:
+    get:
+      operationId: Corsi_Erogati
+      summary: Elenco dei corsi erogati da un IFS
+      description: Elenco dei corsi erogati da un IFS
+      parameters:
+        - name: CodiceIPA
+          in: query
+          schema:
+            type: string
+          required: true
+          description:  Indice delle Pubbliche Amministrazioni, riferimento univoco dell'IFS
+      responses:
+        '200':
+          description: Viene restituito l'elenco dei corsi erogati da un IFS
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Parametro CodiceIPA obbligatorio
+        '401':
+          description: Informazioni sull'autorizzazione mancanti o non valide
+  /ISIUniv23/api/Studente_Dettaglio_Iscrizione:
+    get:
+      operationId: Studente_Dettaglio_Iscrizione
+      summary: Studente iscritto con dettaglio iscrizione
+      description: Studente iscritto con dettaglio iscrizione
+      parameters:
+        - name: CodiceIPA
+          in: query
+          schema:
+            type: string
+          required: true
+          description:  Indice delle Pubbliche Amministrazioni, riferimento univoco dell'IFS
+        - name: CF
+          in: query
+          schema:
+            type: string
+          required: true
+          description: Codice fiscale dello studente per cui è fatta la richiesta dati
+      responses:
+        '200':
+          description: Viene restituito il dettaglio iscrizione per lo studente indicato mediante il parametro codice fiscale (CF)
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Parametro CodiceIPA obbligatorio
+        '401':
+          description: Informazioni sull'autorizzazione mancanti o non valide
+  /ISIUniv23/api/Studente_Elenco_Titoli:
+    get:
+      operationId: Studente_Elenco_Titoli
+      summary: Elenco dei titoli conseguiti per lo studente iscritto
+      description: Elenco dei titoli conseguiti per lo studente iscritto
+      parameters:
+        - name: CodiceIPA
+          in: query
+          schema:
+            type: string
+          required: true
+          description:  Indice delle Pubbliche Amministrazioni, riferimento univoco dell'IFS
+        - name: CF
+          in: query
+          schema:
+            type: string
+          required: true
+          description: Codice fiscale dello studente per cui è fatta la richiesta dati
+      responses:
+        '200':
+          description: Viene restituito l'elenco dei titoli conseguiti per lo studente iscritto indicato mediante il parametro codice fiscale (CF)
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Parametro CodiceIPA obbligatorio
+        '401':
+          description: Informazioni sull'autorizzazione mancanti o non valide
+  /ISIUniv23/api/Studenti_Con_Titolo:
+    get:
+      operationId: Studenti_Con_Titolo
+      summary: Elenco degli studenti che hanno conseguito almeno un titolo
+      description: Elenco degli studenti che hanno conseguito almeno un titolo
+      parameters:
+        - name: CodiceIPA
+          in: query
+          schema:
+            type: string
+          required: true
+          description:  Indice delle Pubbliche Amministrazioni, riferimento univoco dell'IFS
+      responses:
+        '200':
+          description: Viene restituito l'elenco degli studenti che hanno conseguito almeno un titolo
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Parametro CodiceIPA obbligatorio
+        '401':
+          description: Informazioni sull'autorizzazione mancanti o non valide
+  /ISIUniv23/api/Studenti_Iscritti:
+    get:
+      operationId: Studenti_Iscritti
+      summary: Elenco studenti iscritti presso quell'IFS
+      description: Elenco studenti iscritti presso quell'IFS
+      parameters:
+        - name: CodiceIPA
+          in: query
+          schema:
+            type: string
+          required: true
+          description:  Indice delle Pubbliche Amministrazioni, riferimento univoco dell'IFS
+      responses:
+        '200':
+          description: Viene restituito l'elenco studenti iscritti presso quell'IFS
           content:
             application/json:
               schema:
