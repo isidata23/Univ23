@@ -30,7 +30,7 @@ paths:
           description:  Indice delle Pubbliche Amministrazioni, riferimento univoco dell'IFS
       responses:
         '200':
-          description: Viene restituito formato json il numero di studenti iscritti ai Corsi di Studio raggruppati per anno di corso
+          description: Viene restituito il numero di studenti iscritti ai Corsi di Studio raggruppati per anno di corso
           content:
             application/json:
               schema:
@@ -53,7 +53,7 @@ paths:
           description:  Indice delle Pubbliche Amministrazioni, riferimento univoco dell'IFS
       responses:
         '200':
-          description: Viene restituito formato json il numero di studenti iscritti ai Corsi di Studio
+          description: Viene restituito il numero di studenti iscritti ai Corsi di Studio
           content:
             application/json:
               schema:
@@ -79,10 +79,19 @@ paths:
           schema:
             type: string
           required: true
-          description:  Indice delle Pubbliche Amministrazioni, riferimento univoco dell'IFS
+          schema:
+            example: 8.5
+          description:  Voto di riferimento per ottenere il conteggio degli studenti con votazione maggiore del sudetto parametro. I decimali vanno separati col punto.
+        - name: Vecchio_Ordinamento
+          in: query
+          schema:
+            type: integer
+            enum: [0, 1]
+          required: true
+          description:  0 = nuovo ordinamento, 1 = vecchio ordinamento
       responses:
         '200':
-          description: Viene restituito formato json il numero di studenti iscritti ai Corsi di Studio
+          description: Viene restituito il conteggio degli studenti con votazione maggiore del parametro Voto
           content:
             application/json:
               schema:
