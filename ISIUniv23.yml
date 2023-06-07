@@ -226,3 +226,32 @@ paths:
           description: Parametro CodiceIPA obbligatorio
         '401':
           description: Informazioni sull'autorizzazione mancanti o non valide
+  /ISIUniv23/api/Prova_Diploma:
+    get:
+      operationId: Prova_Diploma
+      summary: Prova del diploma di istruzione terziaria/certificato/laurea supplement – Diploma supplement o Diploma di istruzione terziaria
+      description: Prova del diploma di istruzione terziaria/certificato/laurea supplement – Diploma supplement o Diploma di istruzione terziaria
+      parameters:
+        - name: CodiceIPA
+          in: query
+          schema:
+            type: string
+          required: true
+          description:  Indice delle Pubbliche Amministrazioni, riferimento univoco dell'IFS
+        - name: CF
+          in: query
+          schema:
+            type: string
+          required: true
+          description: Codice fiscale dello studente per cui è fatta la richiesta dati
+      responses:
+        '200':
+          description: Viene restituita la prova del diploma di istruzione terziaria/certificato/laurea supplement – Diploma supplement o Diploma di istruzione terziaria
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Parametro CodiceIPA obbligatorio
+        '401':
+          description: Informazioni sull'autorizzazione mancanti o non valide
