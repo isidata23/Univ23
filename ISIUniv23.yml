@@ -3,22 +3,57 @@
 #
 openapi: 3.0.1
 info:
-  title: API ISIUniv23
+  title: API ISIDATA ISIUniv23
+  x-summary: API ISIDATA ISIUniv23
+  version: 1.0.0
   description: ISIDATA - API Tracciati record
-  version: '0.1'
+  termsOfService: https://example.com/terms/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: API Support
+    email: fabiofonzo@isidataservizi.it
+  x-api-id: 38282e04-1f49-4c13-b131-cc25d7a6c9bf
 components:  
   securitySchemes:
     testAutenticazione:
         type: http
-        scheme: basic
+        scheme: Basic
 security:  
     - testAutenticazione: []
 servers:
-   - url: https://servizi1.isidata.net
+   - url: https://servizi1.isidata.net/ISIUniv23/api
+     description: Production server
+tags:
+  - name: status
+  - name: iscritticorsixanno
+  - name: iscritticorsi
+  - name: studentivotazionemaggioredi
+  - name: corsierogati
+  - name: studentedettaglioiscrizione
+  - name: studenteelencotitoli
+  - name: studenticontitolo
+  - name: studentiiscritti
+  - name: provadiploma
 paths:
-  /ISIUniv23/api/Conteggio_Iscritti_Corso_PerAnno:
+  /status:
     get:
-      operationId: Conteggio_Iscritti_Corso_PerAnno
+      summary: Get the API status
+      operationId: status
+      description: Get the API status
+      tags:
+        - status
+      responses:
+        '204':
+          description: the server has successfully fulfilled the request and that there is no content to send.
+        '500':
+          description: service not running.
+  /iscritticorsixanno:
+    get:
+      tags:
+        - iscritticorsixanno
+      operationId: iscritticorsixanno
       summary: Numero di studenti iscritti ai Corsi di Studio raggruppati per anno di corso
       description: Numero di studenti iscritti ai Corsi di Studio raggruppati per anno di corso
       parameters:
@@ -39,9 +74,11 @@ paths:
           description: Parametro CodiceIPA obbligatorio
         '401':
           description: Informazioni sull'autorizzazione mancanti o non valide
-  /ISIUniv23/api/Conteggio_Iscritti_Corsi:
+  /iscritticorsi:
     get:
-      operationId: Conteggio_Iscritti_Corsi
+      tags:
+        - iscritticorsi
+      operationId: iscritticorsi
       summary: Numero di studenti iscritti ai Corsi di Studio
       description: Numero di studenti iscritti ai Corsi di Studio
       parameters:
@@ -62,9 +99,11 @@ paths:
           description: Parametro CodiceIPA obbligatorio
         '401':
           description: Informazioni sull'autorizzazione mancanti o non valide
-  /ISIUniv23/api/Conteggio_Studenti_Votazione_MaggioreDi:
+  /studentivotazionemaggioredi:
     get:
-      operationId: Conteggio_Studenti_Votazione_MaggioreDi
+      tags:
+        - studentivotazionemaggioredi
+      operationId: studentivotazionemaggioredi
       summary: Numero di studenti che hanno conseguito il titolo con votazione maggiore di X (parametro Voto)
       description: Numero di studenti che hanno conseguito il titolo con votazione maggiore di X (parametro Voto)
       parameters:
@@ -79,15 +118,15 @@ paths:
           schema:
             type: string
           required: true
-          example: 8.5
+          example: '8.5'
           description:  Voto di riferimento per ottenere il conteggio degli studenti con votazione maggiore del sudetto parametro. I decimali vanno separati col punto.
         - name: Vecchio_Ordinamento
           in: query
           schema:
-            type: integer
-            enum: [0, 1]
+            type: boolean
+            enum: [false, true]
           required: true
-          description:  0 = nuovo ordinamento, 1 = vecchio ordinamento
+          description:  false = nuovo ordinamento, true = vecchio ordinamento
       responses:
         '200':
           description: Viene restituito il conteggio degli studenti con votazione maggiore del parametro Voto
@@ -99,9 +138,11 @@ paths:
           description: Parametro CodiceIPA obbligatorio
         '401':
           description: Informazioni sull'autorizzazione mancanti o non valide
-  /ISIUniv23/api/Corsi_Erogati:
+  /corsierogati:
     get:
-      operationId: Corsi_Erogati
+      tags:
+        - corsierogati
+      operationId: corsierogati
       summary: Elenco dei corsi erogati da un IFS
       description: Elenco dei corsi erogati da un IFS
       parameters:
@@ -122,9 +163,11 @@ paths:
           description: Parametro CodiceIPA obbligatorio
         '401':
           description: Informazioni sull'autorizzazione mancanti o non valide
-  /ISIUniv23/api/Studente_Dettaglio_Iscrizione:
+  /studentedettaglioiscrizione:
     get:
-      operationId: Studente_Dettaglio_Iscrizione
+      tags:
+        - studentedettaglioiscrizione
+      operationId: studentedettaglioiscrizione
       summary: Studente iscritto con dettaglio iscrizione
       description: Studente iscritto con dettaglio iscrizione
       parameters:
@@ -134,7 +177,7 @@ paths:
             type: string
           required: true
           description:  Indice delle Pubbliche Amministrazioni, riferimento univoco dell'IFS
-        - name: CF
+        - name: codice_fiscale
           in: query
           schema:
             type: string
@@ -151,9 +194,11 @@ paths:
           description: Parametro CodiceIPA obbligatorio
         '401':
           description: Informazioni sull'autorizzazione mancanti o non valide
-  /ISIUniv23/api/Studente_Elenco_Titoli:
+  /studenteelencotitoli:
     get:
-      operationId: Studente_Elenco_Titoli
+      tags:
+        - studenteelencotitoli
+      operationId: studenteelencotitoli
       summary: Elenco dei titoli conseguiti per lo studente iscritto
       description: Elenco dei titoli conseguiti per lo studente iscritto
       parameters:
@@ -163,7 +208,7 @@ paths:
             type: string
           required: true
           description:  Indice delle Pubbliche Amministrazioni, riferimento univoco dell'IFS
-        - name: CF
+        - name: codice_fiscale
           in: query
           schema:
             type: string
@@ -180,9 +225,11 @@ paths:
           description: Parametro CodiceIPA obbligatorio
         '401':
           description: Informazioni sull'autorizzazione mancanti o non valide
-  /ISIUniv23/api/Studenti_Con_Titolo:
+  /studenticontitolo:
     get:
-      operationId: Studenti_Con_Titolo
+      tags:
+        - studenticontitolo
+      operationId: studenticontitolo
       summary: Elenco degli studenti che hanno conseguito almeno un titolo
       description: Elenco degli studenti che hanno conseguito almeno un titolo
       parameters:
@@ -203,9 +250,11 @@ paths:
           description: Parametro CodiceIPA obbligatorio
         '401':
           description: Informazioni sull'autorizzazione mancanti o non valide
-  /ISIUniv23/api/Studenti_Iscritti:
+  /studentiiscritti:
     get:
-      operationId: Studenti_Iscritti
+      tags:
+        - studentiiscritti
+      operationId: studentiiscritti
       summary: Elenco studenti iscritti presso quell'IFS
       description: Elenco studenti iscritti presso quell'IFS
       parameters:
@@ -226,9 +275,11 @@ paths:
           description: Parametro CodiceIPA obbligatorio
         '401':
           description: Informazioni sull'autorizzazione mancanti o non valide
-  /ISIUniv23/api/Prova_Diploma:
+  /provadiploma:
     get:
-      operationId: Prova_Diploma
+      tags:
+        - provadiploma
+      operationId: provadiploma
       summary: Prova del diploma di istruzione terziaria/certificato/laurea supplement – Diploma supplement o Diploma di istruzione terziaria
       description: Prova del diploma di istruzione terziaria/certificato/laurea supplement – Diploma supplement o Diploma di istruzione terziaria
       parameters:
@@ -238,7 +289,7 @@ paths:
             type: string
           required: true
           description:  Indice delle Pubbliche Amministrazioni, riferimento univoco dell'IFS
-        - name: CF
+        - name: codice_fiscale
           in: query
           schema:
             type: string
