@@ -23,7 +23,7 @@ components:
 security:  
     - testAutenticazione: []
 servers:
-   - url: https://servizi1.isidata.net/ISIUniv23/api
+   - url: https://servizi1.isidata.net/ISIUniv23/api/v1
      description: Production server
 tags:
   - name: status
@@ -41,7 +41,7 @@ paths:
     get:
       summary: Get the API status
       operationId: status
-      description: Get the API status
+      description: Get the API status for health check purpose
       tags:
         - status
       responses:
